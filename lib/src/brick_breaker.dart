@@ -50,14 +50,29 @@ class BrickBreaker extends FlameGame
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+
+    final keysPressed = HardwareKeyboard.instance.logicalKeysPressed;
+
+    if (keysPressed.contains(LogicalKeyboardKey.arrowLeft)
+        || keysPressed.contains(LogicalKeyboardKey.keyA)) {
+      world.children.query<Bat>().first.moveBy(-batStep);
+    }
+    else if (keysPressed.contains(LogicalKeyboardKey.arrowRight)
+             || keysPressed.contains(LogicalKeyboardKey.keyD)) {
+      world.children.query<Bat>().first.moveBy(batStep);
+    }
+  }
+
+  @override
   KeyEventResult onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     super.onKeyEvent(event, keysPressed);
 
     switch (event.logicalKey) {
-      case LogicalKeyboardKey.arrowLeft || LogicalKeyboardKey.keyA:
-        world.children.query<Bat>().first.moveBy(-batStep);
-      case LogicalKeyboardKey.arrowRight || LogicalKeyboardKey.keyD:
-        world.children.query<Bat>().first.moveBy(batStep);
+      case LogicalKeyboardKey.space:
+      case LogicalKeyboardKey.enter:
+        //startGame();
     }
 
     return KeyEventResult.handled;
