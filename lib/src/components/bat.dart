@@ -36,11 +36,20 @@ class Bat extends PositionComponent
   }
 
   void moveBy(double dx) {
-    add(
-      MoveToEffect(
-        Vector2((position.x + dx).clamp(0, game.width), position.y),
-        EffectController(duration: 0.1),
-      ),
-    );
+    if (position.x + dx >= 0 && position.x + dx <= game.width) {
+      add(
+        MoveToEffect(
+          Vector2((position.x + dx).clamp(0, game.width), position.y),
+          EffectController(duration: 0.1),
+        ),
+      );
+    }
+
+    if (position.x < 0) {
+      position.x = 0;
+    }
+    else if (position.x > game.width) {
+      position.x = game.width;
+    }
   }
 }
