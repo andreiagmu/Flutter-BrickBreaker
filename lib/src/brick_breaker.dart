@@ -118,6 +118,10 @@ class BrickBreaker extends FlameGame
   void update(double dt) {
     super.update(dt);
 
+    if (world.children.query<Bat>().isEmpty) {
+      return;
+    }
+
     final keysPressed = HardwareKeyboard.instance.logicalKeysPressed;
 
     if (keysPressed.contains(LogicalKeyboardKey.arrowLeft)
