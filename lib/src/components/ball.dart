@@ -46,12 +46,12 @@ class Ball extends CircleComponent
     if (other is PlayArea) {
       if (intersectionPoints.first.y <= 0) {
         velocity.y = -velocity.y;
+        wallBounceCommonBehavior();
       }
-      else if (intersectionPoints.first.x <= 0) {
+      else if (intersectionPoints.first.x <= 0
+          || intersectionPoints.first.x >= game.width) {
         velocity.x = -velocity.x;
-      }
-      else if (intersectionPoints.first.x >= game.width) {
-        velocity.x = -velocity.x;
+        wallBounceCommonBehavior();
       }
       else if (intersectionPoints.first.y >= game.height) {
         add(RemoveEffect(
@@ -66,18 +66,16 @@ class Ball extends CircleComponent
       velocity.y = -velocity.y;
       velocity.x = velocity.x +
           (position.x - other.position.x) / other.size.x * game.width * 0.3;
+
+      game.shakeScreen(intensity: 2.0, duration: 100);
     }
     else if (other is Brick) {
-      if (position.y < other.position.y - other.size.y / 2) {
+      if (position.y < other.position.y - other.size.y / 2
+          || position.y > other.position.y + other.size.y / 2) {
         velocity.y = -velocity.y;
       }
-      else if (position.y > other.position.y + other.size.y / 2) {
-        velocity.y = -velocity.y;
-      }
-      else if (position.x < other.position.x) {
-        velocity.x = -velocity.x;
-      }
-      else if (position.x > other.position.x) {
+      else if (position.x < other.position.x
+          || position.x > other.position.x) {
         velocity.x = -velocity.x;
       }
 
@@ -86,5 +84,9 @@ class Ball extends CircleComponent
     else {
       debugPrint('collision with $other');
     }
+  }
+
+  void wallBounceCommonBehavior() {
+    game.shakeScreen(intensity: 2.0, duration: 100);
   }
 }
