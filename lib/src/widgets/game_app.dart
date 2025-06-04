@@ -52,12 +52,18 @@ class _GameAppState extends State<GameApp> {
               child: Center(
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ScoreCard(score: game.score),
-                        ComboCard(comboMultiplier: game.comboMultiplier),
-                      ],
+                    SizedBox(
+                      height: gameHeight * 0.03,
+                      child: FittedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ScoreCard(score: game.score),
+                            const SizedBox(width: 8),
+                            ComboCard(comboMultiplier: game.comboMultiplier),
+                          ],
+                        ),
+                      ),
                     ),
                     Expanded(
                       child: FittedBox(
