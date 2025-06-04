@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class ComboCard extends StatelessWidget {
   const ComboCard({super.key, required this.comboMultiplier});
@@ -25,7 +26,9 @@ class ComboCard extends StatelessWidget {
               color: textColor,
               fontWeight: FontWeight.bold,
             ),
-          ),
+          )
+              .animate(key: ValueKey(comboMultiplier))
+              .shimmer(),
         );
       },
     );
