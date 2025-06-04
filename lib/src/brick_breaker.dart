@@ -122,15 +122,22 @@ class BrickBreaker extends FlameGame
       return;
     }
 
+    var batSpeed = batStep;
+
     final keysPressed = HardwareKeyboard.instance.logicalKeysPressed;
+
+    if (keysPressed.contains(LogicalKeyboardKey.shiftLeft)
+        || keysPressed.contains(LogicalKeyboardKey.shiftRight)) {
+      batSpeed *= 0.5;
+    }
 
     if (keysPressed.contains(LogicalKeyboardKey.arrowLeft)
         || keysPressed.contains(LogicalKeyboardKey.keyA)) {
-      world.children.query<Bat>().first.moveBy(-batStep);
+      world.children.query<Bat>().first.moveBy(-batSpeed);
     }
     else if (keysPressed.contains(LogicalKeyboardKey.arrowRight)
              || keysPressed.contains(LogicalKeyboardKey.keyD)) {
-      world.children.query<Bat>().first.moveBy(batStep);
+      world.children.query<Bat>().first.moveBy(batSpeed);
     }
   }
 
