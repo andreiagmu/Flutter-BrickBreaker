@@ -28,7 +28,7 @@ class BrickBreaker extends FlameGame
 
   final ValueNotifier<int> score = ValueNotifier(0);
 
-  int comboMultiplier = 1;
+  final ValueNotifier<int> comboMultiplier = ValueNotifier(1);
   DateTime? lastBrickDestroyedTime;
   final Duration comboBreakTime = Duration(seconds: 1);
 
@@ -110,13 +110,22 @@ class BrickBreaker extends FlameGame
 
   void resetGame() {
     score.value = 0;
-    comboMultiplier = 1;
+    comboMultiplier.value = 1;
     lastBrickDestroyedTime = null;
   }
 
   @override
   void update(double dt) {
     super.update(dt);
+
+    if (comboMultiplier.value > 1) {
+      final now = DateTime.now();
+
+      if (lastBrickDestroyedTime != null
+          && now.difference(lastBrickDestroyedTime!) > comboBreakTime) {
+        comboMultiplier.value = 1;
+      }
+    }
 
     if (world.children.query<Bat>().isEmpty) {
       return;

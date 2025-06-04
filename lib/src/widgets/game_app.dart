@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../brick_breaker.dart';
 import '../config.dart';
+import 'combo_card.dart';
 import 'overlay_screen.dart';
 import 'score_card.dart';
 
@@ -52,6 +53,7 @@ class _GameAppState extends State<GameApp> {
                 child: Column(
                   children: [
                     ScoreCard(score: game.score),
+                    ComboCard(comboMultiplier: game.comboMultiplier),
                     Expanded(
                       child: FittedBox(
                         child: SizedBox(

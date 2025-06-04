@@ -27,14 +27,11 @@ class Brick extends RectangleComponent
 
     if (game.lastBrickDestroyedTime != null
         && now.difference(game.lastBrickDestroyedTime!) <= game.comboBreakTime) {
-      game.comboMultiplier = (game.comboMultiplier + 1).clamp(1, 10);
-    }
-    else {
-      game.comboMultiplier = 1;
+      game.comboMultiplier.value = (game.comboMultiplier.value + 1).clamp(1, 10);
     }
 
     var baseScore = 1 * 100;
-    game.score.value += baseScore * game.comboMultiplier;
+    game.score.value += baseScore * game.comboMultiplier.value;
     game.lastBrickDestroyedTime = now;
 
     //print('Score: ${game.score.value}, Combo Multiplier: x${game.comboMultiplier}');
