@@ -32,6 +32,11 @@ class Bat extends PositionComponent
   @override
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
+
+    if (isRemoved) {
+      return;
+    }
+
     position.x = (position.x + event.localDelta.x).clamp(0, game.width);
   }
 
