@@ -22,7 +22,22 @@ class Brick extends RectangleComponent
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
     removeFromParent();
-    game.score.value += 1 * 100;
+
+    final now = DateTime.now();
+
+    if (game.lastBrickDestroyedTime != null
+        && now.difference(game.lastBrickDestroyedTime!) <= game.comboBreakTime) {
+      game.comboMultiplier++;
+    }
+    else {
+      game.comboMultiplier = 1;
+    }
+
+    var baseScore = 1 * 100;
+    game.score.value += baseScore * game.comboMultiplier;
+    game.lastBrickDestroyedTime = now;
+
+    //print('Score: ${game.score.value}, Combo Multiplier: x${game.comboMultiplier}');
 
     if (game.world.children.query<Brick>().length == 1) {
       game.score.value += 10000;
