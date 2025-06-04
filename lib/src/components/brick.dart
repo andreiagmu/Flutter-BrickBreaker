@@ -24,7 +24,8 @@ class Brick extends RectangleComponent
     removeFromParent();
     game.score.value += 1 * 100;
 
-    if(game.world.children.query<Brick>().length == 1) {
+    if (game.world.children.query<Brick>().length == 1) {
+      game.score.value += 10000;
       game.playState = PlayState.won;
       game.world.removeAll(game.world.children.query<Ball>());
       game.world.removeAll(game.world.children.query<Bat>());
