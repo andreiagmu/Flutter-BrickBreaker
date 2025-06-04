@@ -28,7 +28,8 @@ class ComboCard extends StatelessWidget {
             ),
           )
               .animate(key: ValueKey(comboMultiplier))
-              .shimmer(),
+              .shimmer()
+              .shake(),
         );
       },
     );
