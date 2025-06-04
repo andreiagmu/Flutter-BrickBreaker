@@ -10,22 +10,23 @@ class ComboCard extends StatelessWidget {
     return ValueListenableBuilder<int>(
       valueListenable: comboMultiplier,
       builder: (context, comboMultiplier, child) {
+        var textColor = Colors.transparent;
+
         if (comboMultiplier > 1) {
-          // Display if comboMultiplier is greater than 1.
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(12, 6, 12, 18),
-            child: Text(
-              'Combo\nx$comboMultiplier',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          );
+          textColor = Colors.red;
         }
-        // If comboMultiplier is 1, show nothing.
-        return const SizedBox.shrink();
+
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(12, 6, 12, 18),
+          child: Text(
+            'Combo\nx$comboMultiplier',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: textColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
       },
     );
   }
