@@ -30,7 +30,13 @@ class Ball extends CircleComponent
   @override
   void update(double dt) {
     super.update(dt);
+
+    // Update the ball's position
     position += velocity * dt;
+
+    // Clamp the ball within the play area boundaries, except at the bottom
+    position.x = position.x.clamp(0 + radius, game.width);
+    position.y = position.y.clamp(0 + radius, double.nan);
   }
 
   @override
