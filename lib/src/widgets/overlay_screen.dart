@@ -20,7 +20,7 @@ class OverlayScreen extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          Text(subtitle, style: Theme.of(context).textTheme.headlineSmall)
+          Text(subtitle, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center)
               .animate()
               .fadeIn(duration: 1.seconds)
               .then()
