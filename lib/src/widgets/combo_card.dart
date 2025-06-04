@@ -17,7 +17,7 @@ class ComboCard extends StatelessWidget {
         }
 
         return Padding(
-          padding: const EdgeInsets.fromLTRB(12, 6, 12, 18),
+          padding: const EdgeInsets.fromLTRB(8, 0, 0, 8),
           child: Text(
             'Combo\nx$comboMultiplier',
             textAlign: TextAlign.center,
