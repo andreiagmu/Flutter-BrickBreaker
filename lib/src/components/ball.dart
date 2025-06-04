@@ -48,12 +48,12 @@ class Ball extends CircleComponent
         velocity.y = -velocity.y;
         wallBounceCommonBehavior();
       }
-      else if (intersectionPoints.first.x <= 0
+      if (intersectionPoints.first.x <= 0
           || intersectionPoints.first.x >= game.width) {
         velocity.x = -velocity.x;
         wallBounceCommonBehavior();
       }
-      else if (intersectionPoints.first.y >= game.height) {
+      if (intersectionPoints.first.y >= game.height) {
         add(RemoveEffect(
           delay: 0.35,
           onComplete: () {
