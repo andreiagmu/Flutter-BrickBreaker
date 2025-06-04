@@ -27,7 +27,7 @@ class Brick extends RectangleComponent
 
     if (game.lastBrickDestroyedTime != null
         && now.difference(game.lastBrickDestroyedTime!) <= game.comboBreakTime) {
-      game.comboMultiplier++;
+      game.comboMultiplier = (game.comboMultiplier + 1).clamp(1, 10);
     }
     else {
       game.comboMultiplier = 1;
