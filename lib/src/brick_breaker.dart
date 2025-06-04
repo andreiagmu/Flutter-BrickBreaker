@@ -171,4 +171,62 @@ class BrickBreaker extends FlameGame
 
   @override
   Color backgroundColor() => const Color(0xFFF2E8CF);
+
+  void onBrickDestroyed() {
+    checkGameWon();
+    handleCombo();
+    shakeScreen();
+  }
+
+  void checkGameWon() {
+    if (world.children.query<Brick>().length == 1) {
+      onGameWon();
+    }
+  }
+
+  void onGameWon() {
+    score.value += 10000;
+    playState = PlayState.won;
+    world.removeAll(world.children.query<Ball>());
+    world.removeAll(world.children.query<Bat>());
+  }
+
+  void handleCombo() {
+    final now = DateTime.now();
+
+    if (lastBrickDestroyedTime != null
+        && now.difference(lastBrickDestroyedTime!) <= comboBreakTime) {
+      comboMultiplier.value = (comboMultiplier.value + 1).clamp(1, 10);
+    }
+
+    var baseScore = 1 * 100;
+    score.value += baseScore * comboMultiplier.value;
+    lastBrickDestroyedTime = now;
+
+    //print('Score: ${score.value}, Combo Multiplier: x${comboMultiplier}');
+  }
+
+  void shakeScreen({double intensity = 5.0, int duration = 300}) async {
+    // Original camera position
+    final originalPosition = camera.viewfinder.position.clone();
+
+    // Calculate the number of shake updates
+    var shakeUpdates = (duration / 16).ceil(); // Assuming ~60 FPS (16ms per frame)
+    final rand = math.Random();
+
+    for (var i = 0; i < shakeUpdates; i++) {
+      // 16ms delay for ~60 FPS
+      await Future.delayed(const Duration(milliseconds: 16));
+
+      // Generate random x, y offsets within the shake intensity
+      final offsetX = (rand.nextDouble() * 2 - 1) * intensity;
+      final offsetY = (rand.nextDouble() * 2 - 1) * intensity;
+
+      // Update the camera position
+      camera.viewfinder.position = originalPosition + Vector2(offsetX, offsetY);
+    }
+
+    // Reset the camera position after the shake
+    camera.viewfinder.position = originalPosition;
+  }
 }

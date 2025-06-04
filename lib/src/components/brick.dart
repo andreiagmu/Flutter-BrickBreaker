@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../brick_breaker.dart';
 import '../config.dart';
 import 'ball.dart';
-import 'bat.dart';
 
 class Brick extends RectangleComponent
     with CollisionCallbacks, HasGameReference<BrickBreaker> {
@@ -21,26 +20,10 @@ class Brick extends RectangleComponent
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
-    removeFromParent();
 
-    final now = DateTime.now();
-
-    if (game.lastBrickDestroyedTime != null
-        && now.difference(game.lastBrickDestroyedTime!) <= game.comboBreakTime) {
-      game.comboMultiplier.value = (game.comboMultiplier.value + 1).clamp(1, 10);
-    }
-
-    var baseScore = 1 * 100;
-    game.score.value += baseScore * game.comboMultiplier.value;
-    game.lastBrickDestroyedTime = now;
-
-    //print('Score: ${game.score.value}, Combo Multiplier: x${game.comboMultiplier}');
-
-    if (game.world.children.query<Brick>().length == 1) {
-      game.score.value += 10000;
-      game.playState = PlayState.won;
-      game.world.removeAll(game.world.children.query<Ball>());
-      game.world.removeAll(game.world.children.query<Bat>());
+    if (other is Ball) {
+      removeFromParent();
+      game.onBrickDestroyed();
     }
   }
 }
