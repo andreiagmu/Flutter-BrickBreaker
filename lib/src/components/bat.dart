@@ -21,7 +21,7 @@ class Bat extends PositionComponent
     final dragAreaOffset = size.y;
     add(DragArea(
       position: Vector2(0, size.y / 2 + dragAreaOffset / 2),
-      size: Vector2(size.x, dragAreaOffset),
+      size: Vector2(size.x, dragAreaOffset * 2),
       onDragUpdateEx: _handleDragUpdate,
     ));
   }
