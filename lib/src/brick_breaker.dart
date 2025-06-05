@@ -58,6 +58,8 @@ class BrickBreaker extends FlameGame
   FutureOr<void> onLoad() async {
     super.onLoad();
 
+    debugMode = false;
+
     camera.viewfinder.anchor = Anchor.topLeft;
 
     world.add(PlayArea());
@@ -104,8 +106,6 @@ class BrickBreaker extends FlameGame
             color: brickColors[i],
           ),
     ]);
-
-    debugMode = false;
   }
 
   void resetGame() {
