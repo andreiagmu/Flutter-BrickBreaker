@@ -5,6 +5,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 
 import '../brick_breaker.dart';
+import 'drag_area.dart';
 
 class Bat extends PositionComponent
     with DragCallbacks, HasGameReference<BrickBreaker> {
@@ -12,7 +13,18 @@ class Bat extends PositionComponent
     required this.cornerRadius,
     required super.position,
     required super.size,
-  }) : super(anchor: Anchor.center, children: [RectangleHitbox()]);
+  }) : super(anchor: Anchor.center) {
+    // Add a hitbox for the visible bat
+    add(RectangleHitbox());
+
+    // Add an invisible "drag area" below the bat
+    final dragAreaOffset = size.y * 0.5;
+    add(DragArea(
+      position: Vector2(0, size.y / 2 + dragAreaOffset / 2),
+      size: Vector2(size.x, dragAreaOffset),
+      onDragUpdateEx: onDragUpdate,
+    ));
+  }
 
   final Radius cornerRadius;
 
