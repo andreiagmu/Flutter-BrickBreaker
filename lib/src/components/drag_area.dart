@@ -11,7 +11,7 @@ class DragArea extends PositionComponent with DragCallbacks {
     required super.position,
     required super.size,
     required this.onDragUpdateEx,
-  }) : super(anchor: Anchor.center, children: [RectangleHitbox()]) {
+  }) : super(children: [RectangleHitbox()]) {
     final _ = Paint()
       ..color = Colors.transparent
       ..style = PaintingStyle.fill; // Transparent hitbox

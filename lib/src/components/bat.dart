@@ -18,7 +18,7 @@ class Bat extends PositionComponent
     add(RectangleHitbox());
 
     // Add an invisible "drag area" below the bat
-    final dragAreaOffset = size.y * 0.5;
+    final dragAreaOffset = size.y;
     add(DragArea(
       position: Vector2(0, size.y / 2 + dragAreaOffset / 2),
       size: Vector2(size.x, dragAreaOffset),
