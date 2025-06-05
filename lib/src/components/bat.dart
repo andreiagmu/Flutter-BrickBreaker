@@ -22,7 +22,7 @@ class Bat extends PositionComponent
     add(DragArea(
       position: Vector2(0, size.y / 2 + dragAreaOffset / 2),
       size: Vector2(size.x, dragAreaOffset),
-      onDragUpdateEx: onDragUpdate,
+      onDragUpdateEx: _handleDragUpdate,
     ));
   }
 
@@ -44,7 +44,11 @@ class Bat extends PositionComponent
   @override
   void onDragUpdate(DragUpdateEvent event) {
     super.onDragUpdate(event);
+    _handleDragUpdate(event);
+  }
 
+  // Shared drag logic for the bat and extra drag area
+  void _handleDragUpdate(DragUpdateEvent event) {
     if (isRemoved) {
       return;
     }
